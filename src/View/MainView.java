@@ -6,12 +6,16 @@
 package View;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import trabalho2lfa.Trabalho2LFA;
 
 /**
  *
@@ -24,6 +28,7 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -41,7 +46,8 @@ public class MainView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTxtAreaLanguage = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        jBtnOpenFile = new javax.swing.JButton();
+        jBtnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +67,7 @@ public class MainView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -85,10 +91,17 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/directory.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnOpenFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/directory.png"))); // NOI18N
+        jBtnOpenFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnOpenFileActionPerformed(evt);
+            }
+        });
+
+        jBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/save.png"))); // NOI18N
+        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaveActionPerformed(evt);
             }
         });
 
@@ -99,7 +112,10 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -110,7 +126,9 @@ public class MainView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,8 +139,8 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-JFileChooser fileChooser = new JFileChooser();
+    private void jBtnOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOpenFileActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Procurar arquivo");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -138,22 +156,56 @@ JFileChooser fileChooser = new JFileChooser();
                 String fullString = "";
                 while (line != null) {
 
-                    fullString = fullString + line +"\n";
+                    fullString = fullString + line + "\n";
                     line = bufferedReader.readLine();
-                    System.out.println(fullString);
 
                 }
-                jTxtAreaAutomato.setText(fullString);
-                
-               
-                
-                
+                bufferedReader.close();
+                boolean isValid = false;
+                isValid = Trabalho2LFA.isValid(fullString);
+                if (isValid) {
+                    jTxtAreaAutomato.setText(fullString);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Automato não reconhecido");
+                }
+
             } catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+    }//GEN-LAST:event_jBtnOpenFileActionPerformed
+
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int response = fileChooser.showSaveDialog(null);
+        String stringToSave = jTxtAreaAutomato.getText().toString();
+
+        System.out.println(stringToSave);
+        
+        if (response == JFileChooser.APPROVE_OPTION) {
+            boolean isValid = false;
+            isValid = Trabalho2LFA.isValid(stringToSave);
+            if (isValid) {
+                try {
+                    File file = fileChooser.getSelectedFile();
+                    BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.getPath()));
+                    buffWrite.append(stringToSave);
+                    buffWrite.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Automato não reconhecido, não é possível salvar");
+            }
+
+        } else {
+
+        }
+
+
+    }//GEN-LAST:event_jBtnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +243,8 @@ JFileChooser fileChooser = new JFileChooser();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtnOpenFile;
+    private javax.swing.JButton jBtnSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
