@@ -5,11 +5,14 @@
  */
 package trabalho2lfa;
 
+import Model.State;
+import Model.Symbol;
 import View.MainView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -88,65 +91,61 @@ public class Trabalho2LFA {
                 case 5:
                     if (Character.isDigit(actualChar)) {
                         actualState = 5;
-                    } else if(actualChar == '\n'){
+                    } else if (actualChar == '\n') {
                         actualState = 0;
-                        
-                    } 
-                    
-                    else {
+
+                    } else {
                         error = true;
                     }
                     break;
                 case 6:
                     if (actualChar == '=') {
                         actualState = 7;
-                    }else {
+                    } else {
                         error = true;
                     }
                     break;
                 case 7:
                     if (Character.isDigit(actualChar)) {
                         actualState = 8;
-                    }else {
+                    } else {
                         error = true;
                     }
                     break;
                 case 8:
                     if (Character.isDigit(actualChar)) {
                         actualState = 8;
-                    }else if(actualChar == ',') {
+                    } else if (actualChar == ',') {
                         actualState = 7;
-                    }else if(actualChar == '\n') {
+                    } else if (actualChar == '\n') {
                         actualState = 0;
-                    }
-                    else{
+                    } else {
                         error = true;
                     }
                     break;
                 case 9:
                     if (actualChar == '=') {
                         actualState = 10;
-                    } else{
+                    } else {
                         error = true;
                     }
                     break;
                 case 10:
                     if (Character.isDigit(actualChar)) {
                         actualState = 11;
-                    } else{
+                    } else {
                         error = true;
                     }
                     break;
                 case 11:
                     if (Character.isDigit(actualChar)) {
                         actualState = 11;
-                    } else if(actualChar == '\n'){
+                    } else if (actualChar == '\n') {
                         actualState = 0;
-                    } else{
+                    } else {
                         error = true;
                     }
                     break;
-                    
 
             }
             actualIndex++;
@@ -157,6 +156,66 @@ public class Trabalho2LFA {
         } else {
             return false;
         }
+    }
+
+    public static void createAutomato(String phrase) {
+        String array[] = phrase.split("\n");
+        ArrayList<State> allStates = new ArrayList<>();
+        State createState = null;
+        Symbol createSymbol;
+        int lastState = -1;
+        int initialState = 0;
+        String arrayStatesFinals[] = null;
+
+        for (String s : array) {
+
+            if (Character.isDigit(s.charAt(0))) {
+                String arrayState[] = s.split(",");
+                
+                
+                  if(Integer.parseInt(arrayState[0]) != lastState){
+                    createState = new State(Integer.parseInt(arrayState[0]));
+                    createSymbol = new Symbol(arrayState[1].charAt(0),Integer.parseInt(arrayState[2]));
+                    createState.addSymbol(createSymbol);
+                    allStates.add(createState);
+                }
+                  else{
+                      createSymbol = new Symbol(arrayState[1].charAt(0),Integer.parseInt(arrayState[2]));
+                      createState.addSymbol(createSymbol);
+                  }
+                  
+                  
+                lastState = Integer.parseInt(arrayState[0]);   
+                
+            }
+            else{
+                if(s.charAt(0) == 'F'){
+                    String justValues = s.replace("F=", "");
+                    arrayStatesFinals = justValues.split(",");
+                }
+                else{
+                   initialState = Character.getNumericValue(s.charAt(2));
+                    
+                }
+            } 
+        }
+        
+        for (State s : allStates){
+            for(int i = 0; i < arrayStatesFinals.length;i++){
+                if(s.getThisState() == Integer.parseInt(arrayStatesFinals[i])){
+                    s.setIsFinal(true);
+                }
+            }
+            
+            if(s.getThisState() == initialState){
+                s.setIsInitial(true);
+            }
+        }
+        
+        System.out.println(allStates.get(0).isIsInitial());
+        
+        
+
     }
 
 }
