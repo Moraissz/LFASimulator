@@ -5,12 +5,14 @@
  */
 package View;
 
+import Model.State;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -43,7 +45,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTxtAreaAutomato = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        jtxtPhrase = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jBtnConfirm = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -80,7 +82,7 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(jtxtPhrase)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel1)
@@ -98,7 +100,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtnConfirm)
                 .addContainerGap(69, Short.MAX_VALUE))
@@ -266,7 +268,12 @@ public class MainView extends javax.swing.JFrame {
 
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
-        Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText().toString());
+       ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
+       String phrase = jtxtPhrase.getText();
+       Trabalho2LFA.isValidPhrase(phrase, allStates);
+       
+       
+        
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
     /**
@@ -316,9 +323,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea jTxtAreaAutomato;
     private javax.swing.JTextArea jTxtAreaLanguage;
     private javax.swing.JTextArea jTxtAreaShowSteps;
+    private javax.swing.JTextField jtxtPhrase;
     // End of variables declaration//GEN-END:variables
 }

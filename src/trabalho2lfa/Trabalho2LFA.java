@@ -158,7 +158,7 @@ public class Trabalho2LFA {
         }
     }
 
-    public static void createAutomato(String phrase) {
+    public static ArrayList<State> createAutomato(String phrase) {
         String array[] = phrase.split("\n");
         ArrayList<State> allStates = new ArrayList<>();
         State createState = null;
@@ -212,10 +212,79 @@ public class Trabalho2LFA {
             }
         }
         
-        System.out.println(allStates.get(0).isIsInitial());
-        
-        
-
+        return allStates;
+    
     }
+    
+   public static void isValidPhrase(String phrase, ArrayList<State> states){
+   
+       int actualState = 0;
+       int actualIndex;
+       char actualChar;
+       boolean hasState;
+       boolean hasSymbol;
+       boolean isFinal;
+       boolean error;
+       
+       
+       error = false;
+       hasState = false;
+       hasSymbol = false;
+       actualIndex = 0;
+       actualState = Trabalho2LFA.isInitial(states);
+       
+       while(actualIndex < phrase.length() && !error){
+           actualChar = phrase.charAt(actualIndex);
+           
+           for(State s: states){
+               if(s.getThisState() == actualState){
+                   if(hasState)
+                       break;
+                   hasState = true;
+                   for(Symbol symbol : s.getList()){
+                       if(symbol.getSymbol() == actualChar){
+                           actualState = symbol.getNextState();
+                           hasSymbol = true;
+                       }
+                       
+                   }
+               } 
+           }
+           if(!hasState || !hasSymbol){
+               error = true;
+           }
+           actualIndex++;
+           hasSymbol = false;
+           hasState = false;
+       }
+       
+        isFinal = isFinal(states, actualState);
+       
+       if(error || !isFinal )
+           JOptionPane.showMessageDialog(null, "Sentença não reconhecida");
+       
+       if(isFinal)
+           JOptionPane.showMessageDialog(null, "Sentença reconhecida");
+   
+   }
+   
+   
+   public static int isInitial(ArrayList<State> states){
+         for(State s : states){
+           if(s.isIsInitial())
+               return s.getThisState();
+       }
+         return 0;
+   }
+   
+   public static boolean isFinal(ArrayList<State> states, int actualState){
+          for(State s : states){
+           if(s.getThisState() == actualState)
+               if(s.isIsFinal())
+                   return true;
+               
+       }
+          return false;
+   }
 
 }
