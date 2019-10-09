@@ -171,120 +171,146 @@ public class Trabalho2LFA {
 
             if (Character.isDigit(s.charAt(0))) {
                 String arrayState[] = s.split(",");
-                
-                
-                  if(Integer.parseInt(arrayState[0]) != lastState){
+
+                if (Integer.parseInt(arrayState[0]) != lastState) {
                     createState = new State(Integer.parseInt(arrayState[0]));
-                    createSymbol = new Symbol(arrayState[1].charAt(0),Integer.parseInt(arrayState[2]));
+                    createSymbol = new Symbol(arrayState[1].charAt(0), Integer.parseInt(arrayState[2]));
                     createState.addSymbol(createSymbol);
                     allStates.add(createState);
+                } else {
+                    createSymbol = new Symbol(arrayState[1].charAt(0), Integer.parseInt(arrayState[2]));
+                    createState.addSymbol(createSymbol);
                 }
-                  else{
-                      createSymbol = new Symbol(arrayState[1].charAt(0),Integer.parseInt(arrayState[2]));
-                      createState.addSymbol(createSymbol);
-                  }
-                  
-                  
-                lastState = Integer.parseInt(arrayState[0]);   
-                
-            }
-            else{
-                if(s.charAt(0) == 'F'){
+
+                lastState = Integer.parseInt(arrayState[0]);
+
+            } else {
+                if (s.charAt(0) == 'F') {
                     String justValues = s.replace("F=", "");
                     arrayStatesFinals = justValues.split(",");
+                } else {
+                    initialState = Character.getNumericValue(s.charAt(2));
+
                 }
-                else{
-                   initialState = Character.getNumericValue(s.charAt(2));
-                    
-                }
-            } 
+            }
         }
-        
-        for (State s : allStates){
-            for(int i = 0; i < arrayStatesFinals.length;i++){
-                if(s.getThisState() == Integer.parseInt(arrayStatesFinals[i])){
+
+        for (State s : allStates) {
+            for (int i = 0; i < arrayStatesFinals.length; i++) {
+                if (s.getThisState() == Integer.parseInt(arrayStatesFinals[i])) {
                     s.setIsFinal(true);
                 }
             }
-            
-            if(s.getThisState() == initialState){
+
+            if (s.getThisState() == initialState) {
                 s.setIsInitial(true);
             }
         }
-        
+
         return allStates;
-    
+
     }
-    
-   public static void isValidPhrase(String phrase, ArrayList<State> states){
-   
-       int actualState = 0;
-       int actualIndex;
-       char actualChar;
-       boolean hasState;
-       boolean hasSymbol;
-       boolean isFinal;
-       boolean error;
-       
-       
-       error = false;
-       hasState = false;
-       hasSymbol = false;
-       actualIndex = 0;
-       actualState = Trabalho2LFA.isInitial(states);
-       
-       while(actualIndex < phrase.length() && !error){
-           actualChar = phrase.charAt(actualIndex);
-           
-           for(State s: states){
-               if(s.getThisState() == actualState){
-                   if(hasState)
-                       break;
-                   hasState = true;
-                   for(Symbol symbol : s.getList()){
-                       if(symbol.getSymbol() == actualChar){
-                           actualState = symbol.getNextState();
-                           hasSymbol = true;
-                       }
-                       
-                   }
-               } 
-           }
-           if(!hasState || !hasSymbol){
-               error = true;
-           }
-           actualIndex++;
-           hasSymbol = false;
-           hasState = false;
-       }
-       
+
+    public static String isValidPhrase(String phrase, ArrayList<State> states) {
+
+        int actualState = 0;
+        int actualIndex;
+        char actualChar;
+        boolean hasState;
+        boolean hasSymbol;
+        boolean isFinal;
+        boolean error;
+        String reading;
+        String actualStateS;
+        String actualCharS;
+        String showOnThePane;
+        String firstPartOfReading;
+        String untilTheEndOfReading;
+        
+        reading = phrase;
+        error = false;
+        hasState = false;
+        hasSymbol = false;
+        actualIndex = 0;
+        actualStateS = "";
+        actualState = Trabalho2LFA.isInitial(states);
+        showOnThePane = "";
+        System.out.println(reading.length());
+        
+        while (actualIndex < phrase.length() && !error) {
+            actualChar = phrase.charAt(actualIndex);
+            actualStateS = "<span style=\"color:blue\" >q" + actualState + "</span>";
+            actualCharS = "<span style=\"color:red\" >" + reading.charAt(actualIndex) + "</span>";
+  
+                firstPartOfReading = reading.substring(0, actualIndex);
+
+                
+            untilTheEndOfReading = reading.substring(actualIndex+1, reading.length());
+            showOnThePane = showOnThePane + firstPartOfReading + actualStateS + actualCharS + untilTheEndOfReading + "<br>";
+
+            for (State s : states) {
+                if (s.getThisState() == actualState) {
+                    if (hasState) {
+                        break;
+                    }
+                    hasState = true;
+                    for (Symbol symbol : s.getList()) {
+                        if (symbol.getSymbol() == actualChar) {
+                            actualState = symbol.getNextState();
+                            hasSymbol = true;
+                        }
+
+                    }
+                }
+            }
+            if (!hasState || !hasSymbol) {
+                error = true;
+            }
+            actualIndex++;
+            hasSymbol = false;
+            hasState = false;
+        }
+
         isFinal = isFinal(states, actualState);
-       
-       if(error || !isFinal )
-           JOptionPane.showMessageDialog(null, "Sentença não reconhecida");
-       
-       if(isFinal)
-           JOptionPane.showMessageDialog(null, "Sentença reconhecida");
-   
-   }
-   
-   
-   public static int isInitial(ArrayList<State> states){
-         for(State s : states){
-           if(s.isIsInitial())
-               return s.getThisState();
-       }
-         return 0;
-   }
-   
-   public static boolean isFinal(ArrayList<State> states, int actualState){
-          for(State s : states){
-           if(s.getThisState() == actualState)
-               if(s.isIsFinal())
-                   return true;
-               
-       }
-          return false;
-   }
+        showOnThePane = showOnThePane + reading +"<span style=\"color:blue\" >q" + actualState + "</span>"+ "<br>";
+        
+        if (error || !isFinal) {
+            JOptionPane.showMessageDialog(null, "Sentença não reconhecida");
+            showOnThePane = showOnThePane + 
+                    "------------------------------------------------" + "<br>" +"SENTENCA NAO RECONHECIDA" + 
+                    "<br>" + "------------------------------------------------" + "<br>";
+        }
+
+        if (isFinal) {
+            JOptionPane.showMessageDialog(null, "Sentença reconhecida");
+            showOnThePane = showOnThePane 
+                    + "------------------------------------------------" +
+                    "<br>" +"SENTENCA RECONHECIDA" + "<br>" 
+                    + "------------------------------------------------" + "<br>";
+        }
+
+        return showOnThePane;
+    }
+
+    public static int isInitial(ArrayList<State> states) {
+        for (State s : states) {
+            if (s.isIsInitial()) {
+                return s.getThisState();
+            }
+        }
+        return 0;
+    }
+
+    public static boolean isFinal(ArrayList<State> states, int actualState) {
+        for (State s : states) {
+            if (s.getThisState() == actualState) {
+                if (s.isIsFinal()) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
 
 }

@@ -31,6 +31,7 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jEditorPane.setContentType("text/html");
     }
 
     /**
@@ -54,7 +55,7 @@ public class MainView extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTxtAreaShowSteps = new javax.swing.JTextArea();
+        jEditorPane = new javax.swing.JEditorPane();
         jBtnOpenFile = new javax.swing.JButton();
         jBtnSave = new javax.swing.JButton();
 
@@ -114,9 +115,7 @@ public class MainView extends javax.swing.JFrame {
 
         jButton2.setText("<<<");
 
-        jTxtAreaShowSteps.setColumns(20);
-        jTxtAreaShowSteps.setRows(5);
-        jScrollPane3.setViewportView(jTxtAreaShowSteps);
+        jScrollPane3.setViewportView(jEditorPane);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,9 +269,9 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
        ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
        String phrase = jtxtPhrase.getText();
-       Trabalho2LFA.isValidPhrase(phrase, allStates);
+       String x = Trabalho2LFA.isValidPhrase(phrase, allStates);
        
-       
+       jEditorPane.setText(x);
         
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
@@ -317,6 +316,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton jBtnSave;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JEditorPane jEditorPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -325,7 +325,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTxtAreaAutomato;
     private javax.swing.JTextArea jTxtAreaLanguage;
-    private javax.swing.JTextArea jTxtAreaShowSteps;
     private javax.swing.JTextField jtxtPhrase;
     // End of variables declaration//GEN-END:variables
 }
