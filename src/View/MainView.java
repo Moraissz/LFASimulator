@@ -269,9 +269,9 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
        ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
        String phrase = jtxtPhrase.getText();
-       String x = Trabalho2LFA.isValidPhrase(phrase, allStates);
+       String validationsSteps = Trabalho2LFA.isValidPhrase(phrase, allStates);
        
-       jEditorPane.setText(x);
+       jEditorPane.setText(validationsSteps);
         
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
