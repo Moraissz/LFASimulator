@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import trabalho2lfa.Trabalho2LFA;
 
 /**
@@ -200,7 +201,9 @@ public class MainView extends javax.swing.JFrame {
     private void jBtnOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOpenFileActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Procurar arquivo");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
+        fileChooser.setFileFilter(filter);
 
         int returnedValue = fileChooser.showOpenDialog(this);
 
@@ -237,6 +240,8 @@ public class MainView extends javax.swing.JFrame {
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int response = fileChooser.showSaveDialog(null);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
+        fileChooser.setFileFilter(filter);
         String stringToSave = jTxtAreaAutomato.getText().toString();
 
         System.out.println(stringToSave);
@@ -247,6 +252,11 @@ public class MainView extends javax.swing.JFrame {
             if (isValid) {
                 try {
                     File file = fileChooser.getSelectedFile();
+                    if(!file.getName().endsWith(".afd"))
+                    {
+                        JOptionPane.showMessageDialog(null, "Extensão incorreta, por favor termine o nome com .afd");
+                        return;
+                    }
                     BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.getPath()));
                     buffWrite.append(stringToSave);
                     buffWrite.close();
