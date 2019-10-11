@@ -243,7 +243,9 @@ public class MainView extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
         fileChooser.setFileFilter(filter);
         String stringToSave = jTxtAreaAutomato.getText().toString();
-
+        if(stringToSave.charAt(stringToSave.length() -1) != '\n')
+            stringToSave = stringToSave + "\n";
+        
         System.out.println(stringToSave);
         
         if (response == JFileChooser.APPROVE_OPTION) {
