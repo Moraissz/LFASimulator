@@ -113,6 +113,11 @@ public class MainView extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTxtAreaLanguage);
 
         jButton1.setText(">>>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("<<<");
 
@@ -280,12 +285,18 @@ public class MainView extends javax.swing.JFrame {
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
        ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       String phrase = jtxtPhrase.getText();
+       String phrase = jtxtPhrase.getText();Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
        String validationsSteps = Trabalho2LFA.isValidPhrase(phrase, allStates);
        
        jEditorPane.setText(validationsSteps);
         
     }//GEN-LAST:event_jBtnConfirmActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
+       jTxtAreaLanguage.setText(Trabalho2LFA.AutomatoToGrammar(allStates));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

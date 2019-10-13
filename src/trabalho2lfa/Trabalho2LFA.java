@@ -206,7 +206,7 @@ public class Trabalho2LFA {
                 s.setIsInitial(true);
             }
         }
-
+        
         return allStates;
 
     }
@@ -312,5 +312,117 @@ public class Trabalho2LFA {
         }
         return false;
     }
+    
+   public static String AutomatoToGrammar(ArrayList<State> allStates){ 
+        String symbols = null;
+        String states = null;
+        String retorno = "";
+        ArrayList<String> grammar = new ArrayList<>();
+        String sentence = "";
+       
+       for(State s: allStates){
+           if(states == null){
+               states = StateToChar(s, states);
+           }else{
+               if(!states.contains(String.valueOf(s.getThisState()))){
+                   states = states + ", " + StateToChar(s, states);
+               }
+           }
+           for(Symbol symbol: s.getList()){               
+               sentence = StateToChar(s, states) + "->";
+               if(symbols == null){
+                   symbols = String.valueOf(symbol.getSymbol());
+               } else{    
+                   if(!symbols.contains(String.valueOf(symbol.getSymbol()))){
+                       symbols = symbols + ", " +String.valueOf(symbol.getSymbol());
+                   }                   
+               }
+               sentence = sentence + symbol.getSymbol() + StateToChar(GetStateBySymbol(allStates, symbol.getNextState()), states); 
+               grammar.add(sentence); 
+           }
+           if(s.isIsFinal()){
+               sentence = StateToChar(s, states) + "->?";
+               grammar.add(sentence); 
+           }           
+       }
+       for(String s: grammar){
+           retorno = retorno + s + "\n"; 
+       }
+       retorno = "G = (VN, VT, P, S)\n" + "VN = (" + states + ")\nVT = (" + symbols + ")\nP = \n" + retorno;           
+       
+       return(retorno);       
+   }
+   
+   public static String StateToChar(State state, String states){
+       
+       if (state.isIsInitial()){
+           return "S";
+       }
+       
+       switch (state.getThisState()){
+            case 1:
+                return "A";
+            case 2:
+                return "B";
+            case 3:
+                return "C";
+            case 4:
+                return "D";
+            case 5:
+                return "E";
+            case 6:
+                return "F";
+            case 7:
+                return "G";
+            case 8:
+                return "H";
+            case 9:
+                return "I";
+            case 10:
+                return "J";
+            case 11:
+                return "K";
+            case 12:
+                return "L";
+            case 13:
+                return "M";
+            case 14:
+                return "N";
+            case 15:
+                return "O";      
+            case 16:
+                return "P";
+            case 17:
+                return "Q";
+            case 18:
+                return "R";
+            case 19:
+                return "T";
+            case 20:
+                return "U";
+            case 21:
+                return "V";
+            case 22:
+                return "W";
+            case 23:
+                return "X";
+            case 24:
+                return "Y";
+            case 25:
+                return "Z";
+            case 0:
+                return "Z";
+       }
+        return null;      
+   }
+   
+   public static State GetStateBySymbol (ArrayList<State> allStates, int nextStateSymbol){
+       for(State s: allStates){
+           if(s.getThisState() == nextStateSymbol){
+               return s;
+           }
+       }
+       return null;
+   }
 
 }
