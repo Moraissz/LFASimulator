@@ -285,17 +285,26 @@ public class MainView extends javax.swing.JFrame {
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
        ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       String phrase = jtxtPhrase.getText();Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       String validationsSteps = Trabalho2LFA.isValidPhrase(phrase, allStates);
-       
-       jEditorPane.setText(validationsSteps);
+       if(Trabalho2LFA.isDeterministic(allStates)){
+           String phrase = jtxtPhrase.getText();Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
+           String validationsSteps = Trabalho2LFA.isValidPhrase(phrase, allStates);
+           jEditorPane.setText(validationsSteps);
+       }else{
+           JOptionPane.showMessageDialog(null, "Automato não Determinístico");          
+       }
+
         
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       jTxtAreaLanguage.setText(Trabalho2LFA.AutomatoToGrammar(allStates));
+       if(Trabalho2LFA.isDeterministic(allStates)){
+           jTxtAreaLanguage.setText(Trabalho2LFA.AutomatoToGrammar(allStates));
+       }else{
+           JOptionPane.showMessageDialog(null, "Automato não Determinístico");
+       }      
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

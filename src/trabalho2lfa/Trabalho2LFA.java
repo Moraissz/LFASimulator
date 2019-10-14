@@ -424,5 +424,39 @@ public class Trabalho2LFA {
        }
        return null;
    }
+   
+   public static boolean isDeterministic (ArrayList<State> allStates){
+       String[] symbols = getAllSymbols(allStates).split(", "); 
+       String stateSymbols = null;
+
+       for (State s : allStates){
+           stateSymbols = "";
+           for (Symbol symbol : s.getList()){
+               stateSymbols = stateSymbols + symbol.getSymbol();
+           }
+           for(int i = 0; i <symbols.length; i++){
+               if(!stateSymbols.contains(symbols[i])){
+                   return false;
+               }
+           }
+       }     
+       return true;       
+   } 
+   
+   public static String getAllSymbols (ArrayList<State> allStates){ 
+        String symbols = null;
+        for (State s : allStates){
+            for (Symbol symbol : s.getList()){
+               if(symbols == null){
+                   symbols = String.valueOf(symbol.getSymbol());
+               } else{    
+                   if(!symbols.contains(String.valueOf(symbol.getSymbol()))){
+                       symbols = symbols + ", " +String.valueOf(symbol.getSymbol());
+                   }                   
+               }
+           }
+        }       
+        return symbols;
+   }
 
 }
