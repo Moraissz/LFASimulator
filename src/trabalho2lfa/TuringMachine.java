@@ -82,10 +82,9 @@ public class TuringMachine {
         }
         return allStates;
     }
-    
 
-    public static void Run(String tape, ArrayList<TuringMachineState> states) {
-       // char tapeArray[];
+    public static String Run(String tape, ArrayList<TuringMachineState> states) {
+        // char tapeArray[];
         ArrayList<Character> tapeArray = new ArrayList<>();
         boolean error;
         boolean end;
@@ -96,9 +95,15 @@ public class TuringMachine {
         char direction;
         char symbolToWrite;
         int actualTapeIndex;
-        
+        String reading;
+        String actualStateS;
+        String actualCharS;
+        String showOnThePane;
+        String firstPartOfReading;
+        String untilTheEndOfReading;
+
         tapeArray = stringToCharArray(tapeArray, tape);
-       
+
         error = false;
         end = false;
         hasState = false;
@@ -108,11 +113,21 @@ public class TuringMachine {
         direction = ' ';
         symbolToWrite = ' ';
         actualTapeIndex = 0;
-       
+        reading = "";
+        actualStateS = "";
+        showOnThePane = "";
+
         while (!error && !end) {
-            System.out.println("ESTADO " + actualState);
+            actualChar = tapeArray.get(actualTapeIndex);
+            actualStateS = "<span style=\"color:blue\" >q" + actualState + "</span>";
+            actualCharS = "<span style=\"color:red\" >" + tapeArray.get(actualTapeIndex) + "</span>";
+            reading = getStringRepresentation(tapeArray);
+
+            firstPartOfReading = reading.substring(0, actualTapeIndex);
+            untilTheEndOfReading = reading.substring(actualTapeIndex + 1, reading.length());
+            showOnThePane = showOnThePane + firstPartOfReading + actualStateS + actualCharS + untilTheEndOfReading + "<br>";
             for (TuringMachineState s : states) {
-                actualChar = tapeArray.get(actualTapeIndex);
+
                 if (s.getThisState() == actualState) {
                     if (hasState) {
                         break;
@@ -121,53 +136,55 @@ public class TuringMachine {
                     for (TuringMachineSymbol symbol : s.getList()) {
                         if (symbol.getSymbol() == actualChar) {
                             actualState = symbol.getNextState();
-                            direction =  symbol.getDirection();
+                            direction = symbol.getDirection();
                             symbolToWrite = symbol.getSymbolToWrite();
                             hasSymbol = true;
-                            System.out.println("actualChar " +actualChar);
+                            ;
                         }
 
                     }
                 }
             }
-             if (!hasState || !hasSymbol) {
+            if (!hasState || !hasSymbol) {
                 error = true;
             }
 
             if (isFinal(states, actualState)) {
                 end = true;
             }
-            
-       
-            
+
             tapeArray.set(actualTapeIndex, symbolToWrite);
-            
-            if(direction == 'D'){
+
+            if (direction == 'D') {
                 actualTapeIndex++;
-            }else{
+            } else {
                 actualTapeIndex--;
             }
-                 if(actualTapeIndex >= tapeArray.size()){
+            if (actualTapeIndex >= tapeArray.size()) {
                 tapeArray.add(actualTapeIndex, '?');
-                
+
             }
-            
+
             hasSymbol = false;
             hasState = false;
-            System.out.println("String:" + tapeArray.toString());
-
-           
 
         }
-        
-        if(end){
+        showOnThePane = showOnThePane + reading + "<span style=\"color:blue\" >q" + actualState + "</span>" + "<br>";
+        if (end) {
             JOptionPane.showMessageDialog(null, "Sentença reconhecida");
+            showOnThePane = showOnThePane
+                    + "------------------------------------------------"
+                    + "<br>" + "SENTENCA RECONHECIDA" + "<br>"
+                    + "------------------------------------------------" + "<br>";
         }
-        if(error){
+        if (error) {
             JOptionPane.showMessageDialog(null, "Sentença não reconhecida");
+            showOnThePane = showOnThePane
+                    + "------------------------------------------------" + "<br>" + "SENTENCA NAO RECONHECIDA"
+                    + "<br>" + "------------------------------------------------" + "<br>";
         }
-        
-        
+        return showOnThePane;
+
     }
 
     public static int isInitial(ArrayList<TuringMachineState> states) {
@@ -190,12 +207,20 @@ public class TuringMachine {
         }
         return false;
     }
-    
-    public static  ArrayList<Character> stringToCharArray(ArrayList<Character> charArray,String words){
-        for(int i = 0; i<words.length(); i++){
-           charArray.add(words.charAt(i));
-       }
-       return charArray;
+
+    public static ArrayList<Character> stringToCharArray(ArrayList<Character> charArray, String words) {
+        for (int i = 0; i < words.length(); i++) {
+            charArray.add(words.charAt(i));
+        }
+        return charArray;
+    }
+
+    public static String getStringRepresentation(ArrayList<Character> list) {
+        StringBuilder builder = new StringBuilder(list.size());
+        for (Character ch : list) {
+            builder.append(ch);
+        }
+        return builder.toString();
     }
 
 }

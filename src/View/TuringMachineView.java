@@ -30,6 +30,7 @@ public class TuringMachineView extends javax.swing.JFrame {
      */
     public TuringMachineView() {
         initComponents();
+        jEditorPane.setContentType("text/html");
         
     }
 
@@ -50,6 +51,8 @@ public class TuringMachineView extends javax.swing.JFrame {
         jBtnConfirm = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jtxtPhrase = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(600, 400));
@@ -81,6 +84,8 @@ public class TuringMachineView extends javax.swing.JFrame {
 
         jLabel1.setText("SENTENÇA:");
 
+        jScrollPane3.setViewportView(jEditorPane);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -88,7 +93,9 @@ public class TuringMachineView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -96,8 +103,9 @@ public class TuringMachineView extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(jBtnConfirm)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,12 +113,15 @@ public class TuringMachineView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnConfirm)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnConfirm))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,7 +229,8 @@ public class TuringMachineView extends javax.swing.JFrame {
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
          ArrayList<TuringMachineState> states = TuringMachine.createTuringMachine(jTxtAreaAutomato.getText());
-         TuringMachine.Run(jtxtPhrase.getText(), states);
+        String validationsSteps =  TuringMachine.Run(jtxtPhrase.getText(), states);
+        jEditorPane.setText(validationsSteps);
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
     /**
@@ -260,9 +272,11 @@ public class TuringMachineView extends javax.swing.JFrame {
     private javax.swing.JButton jBtnConfirm;
     private javax.swing.JButton jBtnOpenFile;
     private javax.swing.JButton jBtnSave;
+    private javax.swing.JEditorPane jEditorPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTxtAreaAutomato;
     private javax.swing.JTextField jtxtPhrase;
     // End of variables declaration//GEN-END:variables
