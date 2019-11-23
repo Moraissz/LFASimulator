@@ -173,12 +173,12 @@ public class TuringMachineView extends javax.swing.JFrame {
 
                 }
                 bufferedReader.close();
-                boolean isValid = true;
-                
+                boolean isValid = false;
+                isValid = TuringMachine.isValid(fullString);
                 if (isValid) {
                     jTxtAreaAutomato.setText(fullString);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Automato não reconhecido");
+                    JOptionPane.showMessageDialog(null, "Maquina de Turing não reconhecido");
                 }
 
             } catch (IOException ex) {
@@ -191,8 +191,6 @@ public class TuringMachineView extends javax.swing.JFrame {
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int response = fileChooser.showSaveDialog(null);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
-        fileChooser.setFileFilter(filter);
         String stringToSave = jTxtAreaAutomato.getText().toString();
         if(stringToSave.charAt(stringToSave.length() -1) != '\n')
         stringToSave = stringToSave + "\n";
@@ -201,15 +199,10 @@ public class TuringMachineView extends javax.swing.JFrame {
 
         if (response == JFileChooser.APPROVE_OPTION) {
             boolean isValid = false;
-            isValid = Trabalho2LFA.isValid(stringToSave);
+            isValid = TuringMachine.isValid(stringToSave);
             if (isValid) {
                 try {
                     File file = fileChooser.getSelectedFile();
-                    if(!file.getName().endsWith(".afd"))
-                    {
-                        JOptionPane.showMessageDialog(null, "Extensão incorreta, por favor termine o nome com .afd");
-                        return;
-                    }
                     BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.getPath()));
                     buffWrite.append(stringToSave);
                     buffWrite.close();
