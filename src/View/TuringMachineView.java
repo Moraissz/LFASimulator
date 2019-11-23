@@ -32,7 +32,7 @@ public class TuringMachineView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jEditorPane.setContentType("text/html");
-        
+
     }
 
     /**
@@ -182,7 +182,7 @@ public class TuringMachineView extends javax.swing.JFrame {
                 }
 
             } catch (IOException ex) {
-                
+
             }
 
         }
@@ -192,8 +192,9 @@ public class TuringMachineView extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         int response = fileChooser.showSaveDialog(null);
         String stringToSave = jTxtAreaAutomato.getText().toString();
-        if(stringToSave.charAt(stringToSave.length() -1) != '\n')
-        stringToSave = stringToSave + "\n";
+        if (stringToSave.charAt(stringToSave.length() - 1) != '\n') {
+            stringToSave = stringToSave + "\n";
+        }
 
         System.out.println(stringToSave);
 
@@ -207,7 +208,7 @@ public class TuringMachineView extends javax.swing.JFrame {
                     buffWrite.append(stringToSave);
                     buffWrite.close();
                 } catch (IOException ex) {
-                    
+
                 }
 
             } else {
@@ -222,9 +223,20 @@ public class TuringMachineView extends javax.swing.JFrame {
 
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
-         ArrayList<TuringMachineState> states = TuringMachine.createTuringMachine(jTxtAreaAutomato.getText());
-        String validationsSteps =  TuringMachine.Run(jtxtPhrase.getText(), states);
-        jEditorPane.setText(validationsSteps);
+        String stringToValidate = jTxtAreaAutomato.getText().toString();
+        if (stringToValidate.charAt(stringToValidate.length() - 1) != '\n') {
+            stringToValidate = stringToValidate + "\n";
+        }
+        boolean isValid = false;
+        isValid = TuringMachine.isValid(stringToValidate);
+        if (isValid) {
+            ArrayList<TuringMachineState> states = TuringMachine.createTuringMachine(jTxtAreaAutomato.getText());
+            String validationsSteps = TuringMachine.Run(jtxtPhrase.getText(), states);
+            jEditorPane.setText(validationsSteps);
+        } else {
+            JOptionPane.showMessageDialog(null, "Maquina de Turing não reconhecido");
+        }
+
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
     /**
