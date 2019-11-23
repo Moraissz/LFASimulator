@@ -30,6 +30,7 @@ public class TuringMachineView extends javax.swing.JFrame {
      */
     public TuringMachineView() {
         initComponents();
+        this.setLocationRelativeTo(null);
         jEditorPane.setContentType("text/html");
         
     }

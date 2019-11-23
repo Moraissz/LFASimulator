@@ -7,6 +7,7 @@ package trabalho2lfa;
 
 import Model.State;
 import Model.Symbol;
+import View.DeterministicView;
 import View.MainView;
 import View.TuringMachineView;
 import java.io.BufferedReader;
@@ -29,10 +30,9 @@ public class Trabalho2LFA {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //MainView mainView = new MainView();
-        //mainView.setVisible(true);
-        TuringMachineView  turingMachineView = new TuringMachineView();
-        turingMachineView.setVisible(true);
+        MainView mainView = new MainView();
+        mainView.setVisible(true);
+      
     }
 
     public static boolean isValid(String phrase) {

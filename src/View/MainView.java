@@ -5,21 +5,6 @@
  */
 package View;
 
-import Model.State;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import trabalho2lfa.Trabalho2LFA;
-
 /**
  *
  * @author lucas
@@ -31,8 +16,11 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
+        buttonGroup1.add(jRbAfd);
+        buttonGroup1.add(jRbPilha);
+        buttonGroup1.add(jRbTuring);
+        this.setTitle("Trabalho3 LFA");
         this.setLocationRelativeTo(null);
-        jEditorPane.setContentType("text/html");
     }
 
     /**
@@ -44,32 +32,26 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTxtAreaAutomato = new javax.swing.JTextArea();
-        jtxtPhrase = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jRbAfd = new javax.swing.JRadioButton();
+        jRbPilha = new javax.swing.JRadioButton();
+        jRbTuring = new javax.swing.JRadioButton();
         jBtnConfirm = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTxtAreaLanguage = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jEditorPane = new javax.swing.JEditorPane();
-        jBtnOpenFile = new javax.swing.JButton();
-        jBtnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(600, 400));
 
-        jTxtAreaAutomato.setColumns(20);
-        jTxtAreaAutomato.setRows(5);
-        jScrollPane1.setViewportView(jTxtAreaAutomato);
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 17)); // NOI18N
+        jLabel1.setText("Selecione o tipo:");
 
-        jLabel1.setText("SENTENÇA:");
+        jRbAfd.setText("Automato Deterministico Finito");
 
-        jBtnConfirm.setText("Confirmar Sentença");
+        jRbPilha.setText("Automato com Pilha");
+
+        jRbTuring.setText("Maquina de Turing");
+
+        jBtnConfirm.setText("Confirmar");
         jBtnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnConfirmActionPerformed(evt);
@@ -81,231 +63,63 @@ public class MainView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(129, 129, 129)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jtxtPhrase)
+                    .addComponent(jRbTuring)
+                    .addComponent(jRbPilha)
+                    .addComponent(jRbAfd)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jBtnConfirm)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addComponent(jBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jRbAfd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRbPilha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRbTuring)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtnConfirm)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
-
-        jTxtAreaLanguage.setColumns(20);
-        jTxtAreaLanguage.setRows(5);
-        jScrollPane2.setViewportView(jTxtAreaLanguage);
-
-        jButton1.setText(">>>");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("<<<");
-
-        jScrollPane3.setViewportView(jEditorPane);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton1)
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3)
-                .addContainerGap())
-        );
-
-        jBtnOpenFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/directory.png"))); // NOI18N
-        jBtnOpenFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnOpenFileActionPerformed(evt);
-            }
-        });
-
-        jBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/save.png"))); // NOI18N
-        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnSaveActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOpenFileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Procurar arquivo");
-        fileChooser.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
-        fileChooser.setFileFilter(filter);
-
-        int returnedValue = fileChooser.showOpenDialog(this);
-
-        if (returnedValue == JFileChooser.APPROVE_OPTION) {
-
-            try {
-                File file = fileChooser.getSelectedFile();
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(file.getPath()));
-                String line;
-                line = bufferedReader.readLine();
-                String fullString = "";
-                while (line != null) {
-
-                    fullString = fullString + line + "\n";
-                    line = bufferedReader.readLine();
-
-                }
-                bufferedReader.close();
-                boolean isValid = false;
-                isValid = Trabalho2LFA.isValid(fullString);
-                if (isValid) {
-                    jTxtAreaAutomato.setText(fullString);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Automato não reconhecido");
-                }
-
-            } catch (IOException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }//GEN-LAST:event_jBtnOpenFileActionPerformed
-
-    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        int response = fileChooser.showSaveDialog(null);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Automato Finito Determinístico", "afd");
-        fileChooser.setFileFilter(filter);
-        String stringToSave = jTxtAreaAutomato.getText().toString();
-        if(stringToSave.charAt(stringToSave.length() -1) != '\n')
-            stringToSave = stringToSave + "\n";
-        
-        System.out.println(stringToSave);
-        
-        if (response == JFileChooser.APPROVE_OPTION) {
-            boolean isValid = false;
-            isValid = Trabalho2LFA.isValid(stringToSave);
-            if (isValid) {
-                try {
-                    File file = fileChooser.getSelectedFile();
-                    if(!file.getName().endsWith(".afd"))
-                    {
-                        JOptionPane.showMessageDialog(null, "Extensão incorreta, por favor termine o nome com .afd");
-                        return;
-                    }
-                    BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.getPath()));
-                    buffWrite.append(stringToSave);
-                    buffWrite.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Automato não reconhecido, não é possível salvar");
-            }
-
-        } else {
-
-        }
-
-
-    }//GEN-LAST:event_jBtnSaveActionPerformed
-
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
-        // TODO add your handling code here:
-       ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       if(Trabalho2LFA.isDeterministic(allStates)){
-           String phrase = jtxtPhrase.getText();Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-           String validationsSteps = Trabalho2LFA.isValidPhrase(phrase, allStates);
-           jEditorPane.setText(validationsSteps);
-       }else{
-           JOptionPane.showMessageDialog(null, "Automato não Determinístico");          
-       }
-
-        
+        if (jRbAfd.isSelected()) {
+            DeterministicView deterministicView = new DeterministicView();
+            deterministicView.setVisible(true);
+        }
+        if (jRbPilha.isSelected()) {
+         
+        }
+        if (jRbTuring.isSelected()) {
+            TuringMachineView turingMachineView = new TuringMachineView();
+            turingMachineView.setVisible(true);
+        }
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConfirmActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       ArrayList<State> allStates =  Trabalho2LFA.createAutomato(jTxtAreaAutomato.getText());
-       if(Trabalho2LFA.isDeterministic(allStates)){
-           jTxtAreaLanguage.setText(Trabalho2LFA.AutomatoToGrammar(allStates));
-       }else{
-           JOptionPane.showMessageDialog(null, "Automato não Determinístico");
-       }      
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,20 +157,12 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBtnConfirm;
-    private javax.swing.JButton jBtnOpenFile;
-    private javax.swing.JButton jBtnSave;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JEditorPane jEditorPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTxtAreaAutomato;
-    private javax.swing.JTextArea jTxtAreaLanguage;
-    private javax.swing.JTextField jtxtPhrase;
+    private javax.swing.JRadioButton jRbAfd;
+    private javax.swing.JRadioButton jRbPilha;
+    private javax.swing.JRadioButton jRbTuring;
     // End of variables declaration//GEN-END:variables
 }
