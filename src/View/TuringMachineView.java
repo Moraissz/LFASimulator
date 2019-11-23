@@ -5,12 +5,14 @@
  */
 package View;
 
+import Model.TuringMachineState;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,6 +48,8 @@ public class TuringMachineView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTxtAreaAutomato = new javax.swing.JTextArea();
         jBtnConfirm = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jtxtPhrase = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(600, 400));
@@ -75,6 +79,8 @@ public class TuringMachineView extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("SENTENÇA:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -82,9 +88,14 @@ public class TuringMachineView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jBtnConfirm)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jBtnConfirm)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -93,9 +104,13 @@ public class TuringMachineView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtxtPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnConfirm)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,7 +217,8 @@ public class TuringMachineView extends javax.swing.JFrame {
 
     private void jBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmActionPerformed
         // TODO add your handling code here:
-         TuringMachine.createTuringMachine(jTxtAreaAutomato.getText());
+         ArrayList<TuringMachineState> states = TuringMachine.createTuringMachine(jTxtAreaAutomato.getText());
+         TuringMachine.Run(jtxtPhrase.getText(), states);
     }//GEN-LAST:event_jBtnConfirmActionPerformed
 
     /**
@@ -244,8 +260,10 @@ public class TuringMachineView extends javax.swing.JFrame {
     private javax.swing.JButton jBtnConfirm;
     private javax.swing.JButton jBtnOpenFile;
     private javax.swing.JButton jBtnSave;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTxtAreaAutomato;
+    private javax.swing.JTextField jtxtPhrase;
     // End of variables declaration//GEN-END:variables
 }
