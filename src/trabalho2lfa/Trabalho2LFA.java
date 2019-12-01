@@ -71,7 +71,7 @@ public class Trabalho2LFA {
                     //Falta q12, não entendi
                     break;
                 case 2:
-                    if (Character.isLetter(actualChar)) {
+                    if (actualChar >= 33 && actualChar < 127) {
                         actualState = 3;
                     } else {
                         error = true;
